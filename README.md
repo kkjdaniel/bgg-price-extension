@@ -19,12 +19,12 @@
 
 ## ✨ Features
 
-- 🎯 **Automatic Detection** - Instantly recognizes when you're viewing a board game on BoardGameGeek
+- 🎯 **Automatic Detection** - Instantly recognises when you're viewing a board game on BoardGameGeek
 - 💰 **Real-time Pricing** - Shows current prices from multiple retailers
 - 📦 **Shipping Included** - Displays total price including shipping costs
 - ✅ **Stock Status** - Shows real-time availability
-- 🌍 **Smart Localization** - Auto-detects your region for appropriate currency and shipping destination
-- ⚡ **Performance Optimized** - Caches results for 1 hour to reduce API calls
+- 🌍 **Smart Localisation** - Auto-detects your region for appropriate currency and shipping destination
+- ⚡ **Performance Optimised** - Caches results for 1 hour to reduce API calls
 - 💱 **Multi-Currency Support** - USD, GBP, EUR, DKK, SEK
 
 ## 🚀 Installation
@@ -39,7 +39,7 @@ The extension will be available on the Chrome Web Store soon!
 2. Open Chrome and navigate to `chrome://extensions/`
 3. Enable "Developer mode" using the toggle in the top right
 4. Click "Load unpacked"
-5. Select the `bgg-pricing-extension` folder
+5. Select the `bgg-pricing-extension` directory
 6. The extension icon will appear in your toolbar
 
 ## 📖 Usage
