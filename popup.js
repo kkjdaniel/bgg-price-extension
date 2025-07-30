@@ -233,15 +233,19 @@ function showError(message) {
   document.getElementById('loading').classList.add('hidden');
   document.getElementById('no-game').classList.add('hidden');
   document.getElementById('results').classList.add('hidden');
+  document.getElementById('results-header').classList.add('hidden');
   document.getElementById('error').classList.remove('hidden');
   document.getElementById('error-message').textContent = message;
+  document.body.classList.remove('showing-results');
 }
 
 function showNoGame() {
   document.getElementById('loading').classList.add('hidden');
   document.getElementById('error').classList.add('hidden');
   document.getElementById('results').classList.add('hidden');
+  document.getElementById('results-header').classList.add('hidden');
   document.getElementById('no-game').classList.remove('hidden');
+  document.body.classList.remove('showing-results');
 }
 
 function showLoading() {
@@ -258,6 +262,8 @@ function showResults() {
   document.getElementById('error').classList.add('hidden');
   document.getElementById('no-game').classList.add('hidden');
   document.getElementById('results').classList.remove('hidden');
+  document.getElementById('results-header').classList.remove('hidden');
+  document.body.classList.add('showing-results');
 }
 
 async function loadPrices() {

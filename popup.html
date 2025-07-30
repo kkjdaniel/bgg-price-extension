@@ -6,7 +6,36 @@
 </head>
 <body>
   <div class="container">
-    <h1>BGG Price Checker</h1>
+    <div class="top-section">
+      <div class="header">
+        <img src="bgg-pricing-icon.png" alt="BGG Price Checker" class="header-logo">
+        <h1>BGG Price Checker</h1>
+      </div>
+      
+      <div id="results-header" class="results-header hidden">
+        <div class="game-info">
+          <h2 id="game-title"></h2>
+        </div>
+        
+        <div class="settings">
+          <select id="currency">
+            <option value="USD">USD</option>
+            <option value="GBP">GBP</option>
+            <option value="EUR">EUR</option>
+            <option value="DKK">DKK</option>
+            <option value="SEK">SEK</option>
+          </select>
+          
+          <select id="destination">
+            <option value="US">United States</option>
+            <option value="GB">United Kingdom</option>
+            <option value="DE">Germany</option>
+            <option value="DK">Denmark</option>
+            <option value="SE">Sweden</option>
+          </select>
+        </div>
+      </div>
+    </div>
     
     <div id="error" class="error hidden">
       <p id="error-message"></p>
@@ -17,27 +46,6 @@
     </div>
     
     <div id="results" class="results hidden">
-      <div class="game-info">
-        <h2 id="game-title"></h2>
-      </div>
-      
-      <div class="settings">
-        <select id="currency">
-          <option value="USD">USD</option>
-          <option value="GBP">GBP</option>
-          <option value="EUR">EUR</option>
-          <option value="DKK">DKK</option>
-          <option value="SEK">SEK</option>
-        </select>
-        
-        <select id="destination">
-          <option value="US">United States</option>
-          <option value="GB">United Kingdom</option>
-          <option value="DE">Germany</option>
-          <option value="DK">Denmark</option>
-          <option value="SE">Sweden</option>
-        </select>
-      </div>
       
       <div id="prices-container" class="prices-container">
         <div id="loading" class="loading hidden">
