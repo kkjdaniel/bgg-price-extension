@@ -88,9 +88,7 @@ async function fetchPrices(gameId, currency, destination) {
   });
   
   try {
-    console.log('Fetching prices for BGG ID:', gameId);
     const url = `${API_BASE}/info?${params}`;
-    console.log('API URL:', url);
     
     const response = await fetch(url);
     if (!response.ok) {
@@ -98,12 +96,10 @@ async function fetchPrices(gameId, currency, destination) {
     }
     
     const data = await response.json();
-    console.log('API Response:', data);
     
     await cachePrices(gameId, currency, destination, data);
     return data;
   } catch (error) {
-    console.error('Error fetching prices:', error);
     throw error;
   }
 }
@@ -148,16 +144,6 @@ async function displayPrices(data) {
   if (!selectedItem) {
     selectedItem = data.items[0];
   }
-  
-  console.log('BGG ID searched:', searchedBggId);
-  console.log('Selected item:', selectedItem);
-  console.log('All items:', data.items.map(item => ({ 
-    name: item.name, 
-    id: item.id, 
-    external_id: item.external_id, 
-    lang: item.versions?.lang, 
-    priceCount: item.prices?.length || 0 
-  })));
   
   document.getElementById('game-title').textContent = selectedItem.name;
   
