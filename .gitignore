@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+*.swp
+*.swo
+*.log
+node_modules/
+*.tmp
+*.temp
+*.crx
+*.pem

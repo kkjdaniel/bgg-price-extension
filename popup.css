@@ -1,0 +1,183 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  width: 400px;
+  min-height: 200px;
+  background: transparent;
+}
+
+.container {
+  padding: 16px;
+  background: #f5f5f5;
+  min-height: 200px;
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 8px;
+}
+
+h2 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #444;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error, .no-game {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+.settings {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.settings select {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.settings select:hover {
+  border-color: #007bff;
+}
+
+.prices-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.price-item {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  transition: box-shadow 0.2s;
+}
+
+.price-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.shop-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.shop-name {
+  font-weight: 500;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.shop-name:hover {
+  text-decoration: underline;
+}
+
+.stock {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.in-stock {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.out-of-stock {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.price-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.price-amount {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.shipping {
+  font-size: 12px;
+  color: #666;
+}
+
+.no-prices {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}
+
+.attribution {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.attribution p {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.attribution a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.attribution a:hover {
+  text-decoration: underline;
+}

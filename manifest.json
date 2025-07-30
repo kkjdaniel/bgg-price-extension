@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "BGG Price Checker",
+  "version": "1.0.0",
+  "description": "Shows board game prices from BoardGamePrices.co.uk while browsing BoardGameGeek",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://boardgameprices.co.uk/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://boardgamegeek.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "bgg-pricing-icon.png",
+      "48": "bgg-pricing-icon.png",
+      "128": "bgg-pricing-icon.png"
+    }
+  },
+  "icons": {
+    "16": "bgg-pricing-icon.png",
+    "48": "bgg-pricing-icon.png",
+    "128": "bgg-pricing-icon.png"
+  }
+}

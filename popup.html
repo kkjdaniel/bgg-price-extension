@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>BGG Price Checker</h1>
+    
+    <div id="loading" class="loading hidden">
+      <div class="spinner"></div>
+      <p>Fetching prices...</p>
+    </div>
+    
+    <div id="error" class="error hidden">
+      <p id="error-message"></p>
+    </div>
+    
+    <div id="no-game" class="no-game hidden">
+      <p>Visit a BoardGameGeek game page to see pricing information.</p>
+    </div>
+    
+    <div id="results" class="results hidden">
+      <div class="game-info">
+        <h2 id="game-title"></h2>
+      </div>
+      
+      <div class="settings">
+        <select id="currency">
+          <option value="USD">USD</option>
+          <option value="GBP">GBP</option>
+          <option value="EUR">EUR</option>
+          <option value="DKK">DKK</option>
+          <option value="SEK">SEK</option>
+        </select>
+        
+        <select id="destination">
+          <option value="US">United States</option>
+          <option value="GB">United Kingdom</option>
+          <option value="DE">Germany</option>
+          <option value="DK">Denmark</option>
+          <option value="SE">Sweden</option>
+        </select>
+      </div>
+      
+      <div id="prices-list" class="prices-list"></div>
+      
+      <div class="attribution">
+        <p>Prices from <a href="https://boardgameprices.co.uk" target="_blank">BoardGamePrices.co.uk</a></p>
+      </div>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
