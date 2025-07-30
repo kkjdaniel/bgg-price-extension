@@ -184,9 +184,26 @@ h2 {
   color: #CC3300;
 }
 
+.shipping-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .shipping {
   font-size: 12px;
   color: #666;
+}
+
+.country-tag {
+  background: #e0e0e0;
+  color: #555;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .no-prices {

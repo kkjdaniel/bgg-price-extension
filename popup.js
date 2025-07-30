@@ -147,7 +147,10 @@ async function displayPrices(data) {
     selectedItem = data.items[0];
   }
   
-  document.getElementById('game-title').textContent = selectedItem.name;
+  const gameName = selectedItem.name;
+  const maxLength = 30;
+  const truncatedName = gameName.length > maxLength ? gameName.substring(0, maxLength) + '...' : gameName;
+  document.getElementById('game-title').textContent = `Showing prices for ${truncatedName}...`;
   
   const prices = selectedItem.prices || [];
   
@@ -195,6 +198,9 @@ async function displayPrices(data) {
     priceAmount.className = 'price-amount';
     priceAmount.textContent = formatPrice(price.price, data.currency);
     
+    const shippingInfo = document.createElement('div');
+    shippingInfo.className = 'shipping-info';
+    
     const shipping = document.createElement('span');
     shipping.className = 'shipping';
     if (!price.shipping_known) {
@@ -204,9 +210,17 @@ async function displayPrices(data) {
     } else {
       shipping.textContent = 'Free shipping';
     }
+    shippingInfo.appendChild(shipping);
+    
+    if (price.country) {
+      const countryTag = document.createElement('span');
+      countryTag.className = 'country-tag';
+      countryTag.textContent = price.country;
+      shippingInfo.appendChild(countryTag);
+    }
     
     priceInfo.appendChild(priceAmount);
-    priceInfo.appendChild(shipping);
+    priceInfo.appendChild(shippingInfo);
     
     priceEl.appendChild(shopInfo);
     priceEl.appendChild(priceInfo);
