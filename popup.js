@@ -84,7 +84,8 @@ async function fetchPrices(gameId, currency, destination) {
     currency: currency,
     destination: destination,
     sitename: SITE_NAME,
-    sort: 'SMART'
+    sort: 'SMART',
+    apikey: 'feda121b-d920-490d-bf71-6980f6489040'
   });
   
   try {
@@ -172,15 +173,19 @@ async function displayPrices(data) {
     const shopInfo = document.createElement('div');
     shopInfo.className = 'shop-info';
     
-    const shopName = document.createElement('span');
-    shopName.className = 'shop-name';
-    shopName.textContent = `Shop in ${price.country}`;
+    if (price.store && price.store.id) {
+      const storeLogo = document.createElement('img');
+      storeLogo.className = 'store-logo';
+      storeLogo.src = `https://d2qg6c07ydxh2f.cloudfront.net/shops/${price.store.id}.png`;
+      storeLogo.alt = price.store.name || 'Store logo';
+      storeLogo.onerror = function() { this.style.display = 'none'; };
+      shopInfo.appendChild(storeLogo);
+    }
     
     const stock = document.createElement('span');
     stock.className = `stock ${price.stock === 'Y' ? 'in-stock' : 'out-of-stock'}`;
     stock.textContent = price.stock === 'Y' ? 'In Stock' : 'Out of Stock';
     
-    shopInfo.appendChild(shopName);
     shopInfo.appendChild(stock);
     
     const priceInfo = document.createElement('div');
