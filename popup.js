@@ -132,8 +132,9 @@ async function displayPrices(data) {
     return;
   }
   
-  const result = await chrome.storage.local.get(['currentGameId']);
-  const searchedBggId = result.currentGameId;
+  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame\/(\d+)\//);
+  const searchedBggId = gameMatch ? gameMatch[1] : null;
   
   const matchingItems = data.items.filter(item => item.external_id === searchedBggId);
   
@@ -243,20 +244,21 @@ function showResults() {
 async function loadPrices() {
   try {
     const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const isGamePage = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame\/\d+\//);
+    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame\/(\d+)\//);
     
-    if (!isGamePage) {
+    if (!gameMatch) {
       showNoGame();
       return;
     }
     
-    const result = await chrome.storage.local.get(['currentGameId']);
-    const gameId = result.currentGameId;
+    const gameId = gameMatch[1];
     
     if (!gameId) {
       showNoGame();
       return;
     }
+    
+    await chrome.storage.local.set({ currentGameId: gameId });
     
     showResults();
     showLoading();
@@ -282,22 +284,32 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('currency').addEventListener('change', async (e) => {
     const destination = document.getElementById('destination').value;
     await saveSettings(e.target.value, destination);
-    showLoading();
-    const settings = await getStoredSettings();
-    const result = await chrome.storage.local.get(['currentGameId']);
-    const data = await fetchPrices(result.currentGameId, settings.currency, settings.destination);
-    await displayPrices(data);
-    hideLoading();
+    
+    const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame\/(\d+)\//);
+    
+    if (gameMatch && gameMatch[1]) {
+      showLoading();
+      const settings = await getStoredSettings();
+      const data = await fetchPrices(gameMatch[1], settings.currency, settings.destination);
+      await displayPrices(data);
+      hideLoading();
+    }
   });
   
   document.getElementById('destination').addEventListener('change', async (e) => {
     const currency = document.getElementById('currency').value;
     await saveSettings(currency, e.target.value);
-    showLoading();
-    const settings = await getStoredSettings();
-    const result = await chrome.storage.local.get(['currentGameId']);
-    const data = await fetchPrices(result.currentGameId, settings.currency, settings.destination);
-    await displayPrices(data);
-    hideLoading();
+    
+    const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame\/(\d+)\//);
+    
+    if (gameMatch && gameMatch[1]) {
+      showLoading();
+      const settings = await getStoredSettings();
+      const data = await fetchPrices(gameMatch[1], settings.currency, settings.destination);
+      await displayPrices(data);
+      hideLoading();
+    }
   });
 });

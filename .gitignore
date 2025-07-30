@@ -10,3 +10,5 @@ node_modules/
 *.temp
 *.crx
 *.pem
+*.zip
+Archive.zip
