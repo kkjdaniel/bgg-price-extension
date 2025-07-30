@@ -3,15 +3,17 @@ body {
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   width: 400px;
-  min-height: 200px;
-  background: transparent;
+  height: 600px;
+  background: #f5f5f5;
+  overflow: hidden;
 }
 
 .container {
   padding: 16px;
-  background: #f5f5f5;
-  min-height: 200px;
+  height: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
@@ -20,8 +22,9 @@ h1 {
   font-weight: 600;
   color: #333;
   text-align: center;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid #FF5100;
   padding-bottom: 8px;
+  flex-shrink: 0;
 }
 
 h2 {
@@ -38,13 +41,18 @@ h2 {
 .loading {
   text-align: center;
   padding: 40px 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .spinner {
   width: 40px;
   height: 40px;
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #007bff;
+  border-top: 4px solid #FF5100;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 16px;
@@ -57,12 +65,16 @@ h2 {
 
 .error, .no-game {
   text-align: center;
-  padding: 20px;
+  padding: 40px 20px;
   color: #666;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .error {
-  color: #d32f2f;
+  color: #CC3300;
 }
 
 .settings {
@@ -82,12 +94,35 @@ h2 {
 }
 
 .settings select:hover {
-  border-color: #007bff;
+  border-color: #FF5100;
+}
+
+.settings select:focus {
+  outline: none;
+  border-color: #FF5100;
+  box-shadow: 0 0 0 2px rgba(255, 81, 0, 0.2);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.prices-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .prices-list {
-  max-height: 400px;
+  flex: 1;
   overflow-y: auto;
+  min-height: 0;
 }
 
 .price-item {
@@ -97,10 +132,12 @@ h2 {
   padding: 12px;
   margin-bottom: 8px;
   transition: box-shadow 0.2s;
+  cursor: pointer;
 }
 
 .price-item:hover {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-color: #FF5100;
 }
 
 .shop-info {
@@ -112,13 +149,8 @@ h2 {
 
 .shop-name {
   font-weight: 500;
-  color: #007bff;
-  text-decoration: none;
+  color: #333;
   font-size: 14px;
-}
-
-.shop-name:hover {
-  text-decoration: underline;
 }
 
 .stock {
@@ -134,7 +166,7 @@ h2 {
 
 .out-of-stock {
   background: #ffebee;
-  color: #c62828;
+  color: #CC3300;
 }
 
 .price-info {
@@ -146,7 +178,7 @@ h2 {
 .price-amount {
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: #CC3300;
 }
 
 .shipping {
@@ -161,20 +193,25 @@ h2 {
 }
 
 .attribution {
-  margin-top: 16px;
+  margin-top: auto;
   padding-top: 12px;
   border-top: 1px solid #e0e0e0;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .attribution p {
-  margin: 0;
-  font-size: 12px;
+  margin: 0 0 4px 0;
+  font-size: 11px;
   color: #666;
 }
 
+.attribution p:last-child {
+  margin-bottom: 0;
+}
+
 .attribution a {
-  color: #007bff;
+  color: #FF5100;
   text-decoration: none;
 }
 

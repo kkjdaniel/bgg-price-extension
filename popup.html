@@ -8,11 +8,6 @@
   <div class="container">
     <h1>BGG Price Checker</h1>
     
-    <div id="loading" class="loading hidden">
-      <div class="spinner"></div>
-      <p>Fetching prices...</p>
-    </div>
-    
     <div id="error" class="error hidden">
       <p id="error-message"></p>
     </div>
@@ -44,10 +39,17 @@
         </select>
       </div>
       
-      <div id="prices-list" class="prices-list"></div>
+      <div id="prices-container" class="prices-container">
+        <div id="loading" class="loading hidden">
+          <div class="spinner"></div>
+          <p>Fetching prices...</p>
+        </div>
+        <div id="prices-list" class="prices-list"></div>
+      </div>
       
       <div class="attribution">
         <p>Prices from <a href="https://boardgameprices.co.uk" target="_blank">BoardGamePrices.co.uk</a></p>
+        <p>Made with ❤️ by <a href="https://www.karldaniel.co.uk" target="_blank">Karl Daniel</a></p>
       </div>
     </div>
   </div>

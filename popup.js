@@ -168,16 +168,24 @@ async function displayPrices(data) {
     return;
   }
   
-  prices.forEach(price => {
+  const inStockPrices = prices.filter(price => price.stock === 'Y');
+  
+  if (inStockPrices.length === 0) {
+    pricesList.innerHTML = '<p class="no-prices">No items currently in stock.</p>';
+    return;
+  }
+  
+  inStockPrices.forEach(price => {
     const priceEl = document.createElement('div');
     priceEl.className = 'price-item';
+    priceEl.addEventListener('click', () => {
+      window.open(price.link, '_blank');
+    });
     
     const shopInfo = document.createElement('div');
     shopInfo.className = 'shop-info';
     
-    const shopName = document.createElement('a');
-    shopName.href = price.link;
-    shopName.target = '_blank';
+    const shopName = document.createElement('span');
     shopName.className = 'shop-name';
     shopName.textContent = `Shop in ${price.country}`;
     
@@ -231,22 +239,22 @@ function showNoGame() {
 }
 
 function showLoading() {
-  document.getElementById('no-game').classList.add('hidden');
-  document.getElementById('error').classList.add('hidden');
-  document.getElementById('results').classList.add('hidden');
   document.getElementById('loading').classList.remove('hidden');
+  document.getElementById('prices-list').classList.add('hidden');
+}
+
+function hideLoading() {
+  document.getElementById('loading').classList.add('hidden');
+  document.getElementById('prices-list').classList.remove('hidden');
 }
 
 function showResults() {
-  document.getElementById('loading').classList.add('hidden');
   document.getElementById('error').classList.add('hidden');
   document.getElementById('no-game').classList.add('hidden');
   document.getElementById('results').classList.remove('hidden');
 }
 
 async function loadPrices() {
-  showLoading();
-  
   try {
     const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
     const isGamePage = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame\/\d+\//);
@@ -264,11 +272,14 @@ async function loadPrices() {
       return;
     }
     
+    showResults();
+    showLoading();
+    
     const settings = await getStoredSettings();
     const data = await fetchPrices(gameId, settings.currency, settings.destination);
     
     await displayPrices(data);
-    showResults();
+    hideLoading();
     
   } catch (error) {
     showError('Failed to load prices. Please try again later.');
@@ -285,12 +296,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('currency').addEventListener('change', async (e) => {
     const destination = document.getElementById('destination').value;
     await saveSettings(e.target.value, destination);
-    loadPrices();
+    showLoading();
+    const settings = await getStoredSettings();
+    const result = await chrome.storage.local.get(['currentGameId']);
+    const data = await fetchPrices(result.currentGameId, settings.currency, settings.destination);
+    await displayPrices(data);
+    hideLoading();
   });
   
   document.getElementById('destination').addEventListener('change', async (e) => {
     const currency = document.getElementById('currency').value;
     await saveSettings(currency, e.target.value);
-    loadPrices();
+    showLoading();
+    const settings = await getStoredSettings();
+    const result = await chrome.storage.local.get(['currentGameId']);
+    const data = await fetchPrices(result.currentGameId, settings.currency, settings.destination);
+    await displayPrices(data);
+    hideLoading();
   });
 });
