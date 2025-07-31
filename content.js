@@ -7,7 +7,7 @@ let currentGameId = null;
 
 function extractGameId() {
   const url = window.location.href;
-  const match = url.match(/\/boardgame\/(\d+)\//);
+  const match = url.match(/\/boardgame(?:expansion)?\/(\d+)\//);
   return match ? match[1] : null;
 }
 

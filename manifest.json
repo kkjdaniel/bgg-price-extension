@@ -20,7 +20,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://boardgamegeek.com/*"
+        "https://boardgamegeek.com/*",
+        "https://www.boardgamegeek.com/*"
       ],
       "js": [
         "content.js"

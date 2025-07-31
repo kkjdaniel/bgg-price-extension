@@ -134,7 +134,7 @@ async function displayPrices(data) {
   }
   
   const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame\/(\d+)\//);
+  const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame(?:expansion)?\/(\d+)\//);
   const searchedBggId = gameMatch ? gameMatch[1] : null;
   
   const matchingItems = data.items.filter(item => item.external_id === searchedBggId);
@@ -150,7 +150,7 @@ async function displayPrices(data) {
   const gameName = selectedItem.name;
   const maxLength = 30;
   const truncatedName = gameName.length > maxLength ? gameName.substring(0, maxLength) + '...' : gameName;
-  document.getElementById('game-title').textContent = `Showing prices for ${truncatedName}...`;
+  document.getElementById('game-title').textContent = `Showing prices for "${truncatedName}"`;
   
   const prices = selectedItem.prices || [];
   
@@ -269,7 +269,7 @@ function showResults() {
 async function loadPrices() {
   try {
     const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame\/(\d+)\//);
+    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame(?:expansion)?\/(\d+)\//);
     
     if (!gameMatch) {
       showNoGame();
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await saveSettings(e.target.value, destination);
     
     const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame\/(\d+)\//);
+    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame(?:expansion)?\/(\d+)\//);
     
     if (gameMatch && gameMatch[1]) {
       showLoading();
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await saveSettings(currency, e.target.value);
     
     const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame\/(\d+)\//);
+    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame(?:expansion)?\/(\d+)\//);
     
     if (gameMatch && gameMatch[1]) {
       showLoading();
