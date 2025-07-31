@@ -3,7 +3,7 @@
   
   # BGG Price Checker
   
-  [![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://chrome.google.com/webstore)
+  [![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/bgg-price-checker/badhhgecpgddfoebdpiokchnfjadcihi)
   [![Version](https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge)](https://github.com/kkjdaniel/bgg-pricing-extension)
   [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
   [![BoardGameGeek](https://img.shields.io/badge/BoardGameGeek-Compatible-FF6600?style=for-the-badge)](https://boardgamegeek.com)
@@ -29,9 +29,11 @@
 
 ## 🚀 Installation
 
-### Chrome Web Store (Coming Soon)
+### Chrome Web Store
 
-The extension will be available on the Chrome Web Store soon!
+[![Available in the Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/bgg-price-checker/badhhgecpgddfoebdpiokchnfjadcihi)
+
+Install the extension directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/bgg-price-checker/badhhgecpgddfoebdpiokchnfjadcihi).
 
 ### Manual Installation (Developer Mode)
 
