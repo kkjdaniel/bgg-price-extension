@@ -100,3 +100,7 @@ make help   # Shows available commands
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## ⚖️ Disclaimer
+
+This extension is an independent project and is not affiliated with, endorsed by, or connected to BoardGameGeek (BGG). All trademarks and service marks belong to their respective owners.
