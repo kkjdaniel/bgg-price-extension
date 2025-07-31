@@ -4,6 +4,7 @@
   # BGG Price Checker
   
   [![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/bgg-price-checker/badhhgecpgddfoebdpiokchnfjadcihi)
+  [![Firefox Add-ons](https://img.shields.io/badge/Firefox-Coming%20Soon-FF7139?style=for-the-badge&logo=firefox&logoColor=white)](#firefox-add-ons)
   [![Version](https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge)](https://github.com/kkjdaniel/bgg-pricing-extension)
   [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
   [![BoardGameGeek](https://img.shields.io/badge/BoardGameGeek-Compatible-FF6600?style=for-the-badge)](https://boardgamegeek.com)
@@ -29,13 +30,13 @@
 
 ## 🚀 Installation
 
-### Chrome Web Store
+### Chromium Browsers (Chrome, Edge, Brave, Opera, Vivaldi)
 
 [![Available in the Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/bgg-price-checker/badhhgecpgddfoebdpiokchnfjadcihi)
 
-Install the extension directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/bgg-price-checker/badhhgecpgddfoebdpiokchnfjadcihi).
+Install the extension directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/bgg-price-checker/badhhgecpgddfoebdpiokchnfjadcihi). Works with all Chromium-based browsers.
 
-### Manual Installation (Developer Mode)
+#### Manual Installation (Developer Mode)
 
 1. Clone this repository or download the source code
 2. Open Chrome and navigate to `chrome://extensions/`
@@ -43,6 +44,18 @@ Install the extension directly from the [Chrome Web Store](https://chromewebstor
 4. Click "Load unpacked"
 5. Select the `bgg-pricing-extension` directory
 6. The extension icon will appear in your toolbar
+
+### Firefox
+
+[![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Coming%20Soon-FF7139?style=for-the-badge&logo=firefox&logoColor=white)](#)
+
+The Firefox version is coming soon! In the meantime, you can install it manually:
+
+1. Download the source code
+2. Open Firefox and navigate to `about:debugging`
+3. Click "This Firefox" 
+4. Click "Load Temporary Add-on"
+5. Select the `manifest.json` file from the extension directory
 
 ## 📖 Usage
 

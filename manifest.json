@@ -11,6 +11,12 @@
   "host_permissions": [
     "https://boardgameprices.co.uk/*"
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "bgg-price-checker@karldaniel.co.uk",
+      "strict_min_version": "109.0"
+    }
+  },
   "content_scripts": [
     {
       "matches": [
@@ -34,5 +40,11 @@
     "16": "bgg-pricing-icon.png",
     "48": "bgg-pricing-icon.png",
     "128": "bgg-pricing-icon.png"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["browser-polyfill.min.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

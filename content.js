@@ -1,3 +1,8 @@
+// Firefox compatibility
+if (typeof browser !== 'undefined' && typeof chrome === 'undefined') {
+  window.chrome = browser;
+}
+
 let currentGameId = null;
 
 function extractGameId() {

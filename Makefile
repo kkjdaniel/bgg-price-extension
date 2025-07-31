@@ -11,7 +11,8 @@ EXTENSION_FILES := \
 	popup.js \
 	popup.css \
 	bgg-pricing-icon.png \
-	bgg-pricing-icon-small.png
+	bgg-pricing-icon-small.png \
+	browser-polyfill.min.js
 
 dist:
 	@echo "Creating distribution package: $(DIST_FILE)"
