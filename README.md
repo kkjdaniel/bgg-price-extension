@@ -5,7 +5,7 @@
   
   [![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/bgg-price-checker/badhhgecpgddfoebdpiokchnfjadcihi)
   [![Firefox Add-ons](https://img.shields.io/badge/Firefox-Coming%20Soon-FF7139?style=for-the-badge&logo=firefox&logoColor=white)](#firefox-add-ons)
-  [![Version](https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge)](https://github.com/kkjdaniel/bgg-pricing-extension)
+  [![Version](https://img.shields.io/badge/version-1.1.0-green?style=for-the-badge)](https://github.com/kkjdaniel/bgg-pricing-extension)
   [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
   [![BoardGameGeek](https://img.shields.io/badge/BoardGameGeek-Compatible-FF6600?style=for-the-badge)](https://boardgamegeek.com)
   

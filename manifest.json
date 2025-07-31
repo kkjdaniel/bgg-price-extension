@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BGG Price Checker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Compare board game prices from multiple retailers while browsing BoardGameGeek, as well as shipping costs, and availability",
   "permissions": [
     "activeTab",
