@@ -1,6 +1,5 @@
-const API_BASE = 'https://boardgameprices.co.uk/api';
-const SITE_NAME = 'bgg-price-checker-extension';
-const CACHE_DURATION = 60 * 60 * 1000;
+// Use browser API if available (Firefox), otherwise chrome (Chrome)
+const api = (typeof browser !== 'undefined') ? browser : chrome;
 
 function getDefaultSettings() {
   const locale = navigator.language || 'en-US';
@@ -29,31 +28,35 @@ function getDefaultSettings() {
 }
 
 async function getStoredSettings() {
-  const result = await chrome.storage.local.get(['currency', 'destination', 'hasSetDefaults']);
+  const result = await api.storage.local.get(['currency', 'destination', 'hasSetDefaults', 'darkMode', 'badgeEnabled']) || {};
   
-  if (!result.hasSetDefaults) {
+  if (!result || !result.hasSetDefaults) {
     const defaults = getDefaultSettings();
-    await chrome.storage.local.set({
+    await api.storage.local.set({
       currency: defaults.currency,
       destination: defaults.destination,
-      hasSetDefaults: true
+      hasSetDefaults: true,
+      darkMode: false,
+      badgeEnabled: true
     });
-    return defaults;
+    return { ...defaults, darkMode: false, badgeEnabled: true };
   }
   
   return {
     currency: result.currency || 'USD',
-    destination: result.destination || 'US'
+    destination: result.destination || 'US',
+    darkMode: result.darkMode || false,
+    badgeEnabled: result.badgeEnabled !== false
   };
 }
 
 async function saveSettings(currency, destination) {
-  await chrome.storage.local.set({ currency, destination });
+  await api.storage.local.set({ currency, destination });
 }
 
 async function getCachedPrices(gameId, currency, destination) {
   const cacheKey = `prices_${gameId}_${currency}_${destination}`;
-  const result = await chrome.storage.local.get([cacheKey]);
+  const result = await api.storage.local.get([cacheKey]);
   const cached = result[cacheKey];
   
   if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
@@ -65,7 +68,7 @@ async function getCachedPrices(gameId, currency, destination) {
 
 async function cachePrices(gameId, currency, destination, data) {
   const cacheKey = `prices_${gameId}_${currency}_${destination}`;
-  await chrome.storage.local.set({
+  await api.storage.local.set({
     [cacheKey]: {
       data: data,
       timestamp: Date.now()
@@ -133,7 +136,7 @@ async function displayPrices(data) {
     return;
   }
   
-  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const [activeTab] = await api.tabs.query({ active: true, currentWindow: true });
   const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame(?:expansion)?\/(\d+)\//);
   const searchedBggId = gameMatch ? gameMatch[1] : null;
   
@@ -268,8 +271,8 @@ function showResults() {
 
 async function loadPrices() {
   try {
-    const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame(?:expansion)?\/(\d+)\//);
+    const [activeTab] = await api.tabs.query({ active: true, currentWindow: true });
+    const gameMatch = activeTab.url && activeTab.url.match(BGG_GAME_URL_PATTERN);
     
     if (!gameMatch) {
       showNoGame();
@@ -283,7 +286,7 @@ async function loadPrices() {
       return;
     }
     
-    await chrome.storage.local.set({ currentGameId: gameId });
+    await api.storage.local.set({ currentGameId: gameId });
     
     showResults();
     showLoading();
@@ -304,30 +307,50 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('currency').value = settings.currency;
   document.getElementById('destination').value = settings.destination;
   
+  if (settings.darkMode) {
+    document.documentElement.classList.add('dark-mode');
+    document.body.classList.add('dark-mode');
+  }
+  
+  if (!settings.badgeEnabled) {
+    document.getElementById('badge-toggle').classList.add('disabled');
+  }
+  
+  document.getElementById('dark-mode-toggle').addEventListener('click', async () => {
+    document.documentElement.classList.toggle('dark-mode');
+    document.body.classList.toggle('dark-mode');
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    await api.storage.local.set({ darkMode: isDarkMode });
+  });
+  
+  document.getElementById('badge-toggle').addEventListener('click', async () => {
+    const button = document.getElementById('badge-toggle');
+    button.classList.toggle('disabled');
+    const isEnabled = !button.classList.contains('disabled');
+    await api.storage.local.set({ badgeEnabled: isEnabled });
+    
+    const [activeTab] = await api.tabs.query({ active: true, currentWindow: true });
+    if (!isEnabled) {
+      api.runtime.sendMessage({ action: 'clearBadge', tabId: activeTab.id });
+    } else {
+      const gameMatch = activeTab.url && activeTab.url.match(BGG_GAME_URL_PATTERN);
+      if (gameMatch) {
+        setTimeout(() => {
+          api.runtime.sendMessage({ action: 'updateBadge', gameId: gameMatch[1], tabId: activeTab.id });
+        }, 100);
+      }
+    }
+  });
+  
   loadPrices();
   
-  document.getElementById('currency').addEventListener('change', async (e) => {
-    const destination = document.getElementById('destination').value;
-    await saveSettings(e.target.value, destination);
-    
-    const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame(?:expansion)?\/(\d+)\//);
-    
-    if (gameMatch && gameMatch[1]) {
-      showLoading();
-      const settings = await getStoredSettings();
-      const data = await fetchPrices(gameMatch[1], settings.currency, settings.destination);
-      await displayPrices(data);
-      hideLoading();
-    }
-  });
-  
-  document.getElementById('destination').addEventListener('change', async (e) => {
+  async function handleSettingsChange() {
     const currency = document.getElementById('currency').value;
-    await saveSettings(currency, e.target.value);
+    const destination = document.getElementById('destination').value;
+    await saveSettings(currency, destination);
     
-    const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const gameMatch = activeTab.url && activeTab.url.match(/boardgamegeek\.com\/boardgame(?:expansion)?\/(\d+)\//);
+    const [activeTab] = await api.tabs.query({ active: true, currentWindow: true });
+    const gameMatch = activeTab.url && activeTab.url.match(BGG_GAME_URL_PATTERN);
     
     if (gameMatch && gameMatch[1]) {
       showLoading();
@@ -336,5 +359,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       await displayPrices(data);
       hideLoading();
     }
-  });
+  }
+  
+  document.getElementById('currency').addEventListener('change', handleSettingsChange);
+  document.getElementById('destination').addEventListener('change', handleSettingsChange);
 });

@@ -5,7 +5,7 @@
   
   [![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/bgg-price-checker/badhhgecpgddfoebdpiokchnfjadcihi)
   [![Firefox Add-ons](https://img.shields.io/badge/Firefox-Coming%20Soon-FF7139?style=for-the-badge&logo=firefox&logoColor=white)](#firefox-add-ons)
-  [![Version](https://img.shields.io/badge/version-1.1.0-green?style=for-the-badge)](https://github.com/kkjdaniel/bgg-pricing-extension)
+  [![Version](https://img.shields.io/badge/version-1.2.0-green?style=for-the-badge)](https://github.com/kkjdaniel/bgg-pricing-extension)
   [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
   [![BoardGameGeek](https://img.shields.io/badge/BoardGameGeek-Compatible-FF6600?style=for-the-badge)](https://boardgamegeek.com)
   
@@ -52,8 +52,16 @@ Install the extension directly from the [Chrome Web Store](https://chromewebstor
 The Firefox version is coming soon! In the meantime, you can install it manually:
 
 1. Download the source code
+2. Build the Firefox version: `make firefox`
+3. Open Firefox and navigate to `about:debugging`
+4. Click "This Firefox"
+5. Click "Load Temporary Add-on"
+6. Navigate to the `dist` folder and select the Firefox `.zip` file
+
+**Alternative manual method:**
+1. Rename `manifest-firefox.json` to `manifest.json`
 2. Open Firefox and navigate to `about:debugging`
-3. Click "This Firefox" 
+3. Click "This Firefox"
 4. Click "Load Temporary Add-on"
 5. Select the `manifest.json` file from the extension directory
 
@@ -81,21 +89,47 @@ To modify the extension:
 3. Click the refresh icon on the extension card
 4. Test your changes
 
-### Key Files
+### Project Structurew
 
-- `content.js` - Runs on BGG pages to extract game IDs
-- `popup.js` - Main logic for fetching and displaying prices
-- `popup.css` - Styling for the extension popup
+#### Core Files
+
+- `manifest.json` - Chrome/Edge extension manifest (Manifest V3)
+- `manifest-firefox.json` - Firefox extension manifest (Manifest V2)
+- `constants.js` - Shared constants across all scripts
+- `content.js` - Runs on BGG pages to detect game IDs and update badge
+- `background.js` - Service worker handling badge updates and data caching
+- `popup.js` - Main logic for the extension popup UI
+- `popup.html` - Extension popup interface
+- `popup.css` - Styling including dark mode support
 
 ### Building for Distribution
 
-Use the included Makefile to create a distribution package:
+The build process creates platform-specific packages:
 
 ```bash
-make dist   # Creates distribution zip with version from manifest.json
-make clean  # Removes all zip files
-make help   # Shows available commands
+make chrome   # Creates Chrome package in dist/
+make firefox  # Creates Firefox package in dist/
+make all      # Builds both Chrome and Firefox packages
+make clean    # Removes dist directory
+make help     # Shows all available commands
 ```
+
+#### Build Output
+
+- Chrome: `dist/bgg-price-checker-chrome-v{version}.zip`
+- Firefox: `dist/bgg-price-checker-firefox-v{version}.zip`
+
+The Firefox build automatically uses `manifest-firefox.json` and renames it to `manifest.json` inside the package.
+
+### Browser API Compatibility
+
+The extension uses a unified API approach to support both Chrome and Firefox:
+
+```javascript
+const api = typeof browser !== "undefined" ? browser : chrome;
+```
+
+This ensures all storage, tabs, and runtime APIs work correctly across browsers.
 
 ## 🤝 Contributing
 

@@ -1,14 +1,12 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "BGG Price Checker",
   "version": "1.2.0",
   "description": "Compare board game prices from multiple retailers while browsing BoardGameGeek, as well as shipping costs, and availability",
   "permissions": [
     "activeTab",
     "storage",
-    "tabs"
-  ],
-  "host_permissions": [
+    "tabs",
     "https://boardgameprices.co.uk/*"
   ],
   "browser_specific_settings": {
@@ -18,7 +16,8 @@
     }
   },
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["browser-polyfill.min.js", "constants.js", "background.js"],
+    "persistent": false
   },
   "content_scripts": [
     {
@@ -27,13 +26,14 @@
         "https://www.boardgamegeek.com/*"
       ],
       "js": [
+        "browser-polyfill.min.js",
         "constants.js",
         "content.js"
       ],
       "run_at": "document_end"
     }
   ],
-  "action": {
+  "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "bgg-pricing-icon.png",
@@ -45,11 +45,5 @@
     "16": "bgg-pricing-icon.png",
     "48": "bgg-pricing-icon.png",
     "128": "bgg-pricing-icon.png"
-  },
-  "web_accessible_resources": [
-    {
-      "resources": ["browser-polyfill.min.js"],
-      "matches": ["<all_urls>"]
-    }
-  ]
+  }
 }

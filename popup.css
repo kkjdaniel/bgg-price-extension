@@ -17,6 +17,7 @@ body.showing-results {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  background: #f5f5f5;
 }
 
 .top-section {
@@ -29,10 +30,11 @@ body.showing-results {
 .header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 12px;
   margin-bottom: 0;
   flex-shrink: 0;
+  padding-right: 100px;
 }
 
 .results-header {
@@ -268,4 +270,166 @@ h2 {
 
 .attribution a:hover {
   text-decoration: underline;
+}
+
+.badge-toggle,
+.dark-mode-toggle {
+  position: absolute;
+  top: 16px;
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #666;
+}
+
+.badge-toggle {
+  right: 60px;
+}
+
+.dark-mode-toggle {
+  right: 16px;
+}
+
+.badge-toggle:hover,
+.dark-mode-toggle:hover {
+  border-color: #FF5100;
+  color: #FF5100;
+}
+
+.badge-toggle .bell-off-icon {
+  display: none;
+}
+
+.badge-toggle.disabled .bell-icon {
+  display: none;
+}
+
+.badge-toggle.disabled .bell-off-icon {
+  display: block;
+}
+
+.dark-mode-toggle .moon-icon {
+  display: none;
+}
+
+body.dark-mode .dark-mode-toggle .sun-icon {
+  display: none;
+}
+
+body.dark-mode .dark-mode-toggle .moon-icon {
+  display: block;
+}
+
+html.dark-mode {
+  background: #1a1a1a;
+}
+
+body.dark-mode {
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .container {
+  background: #1a1a1a;
+}
+
+body.dark-mode .top-section {
+  background: #242424;
+  border-bottom-color: #FF5100;
+}
+
+body.dark-mode h1 {
+  color: #e0e0e0;
+}
+
+body.dark-mode h2 {
+  color: #b0b0b0;
+}
+
+body.dark-mode .settings select {
+  background: #2d2d2d;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+body.dark-mode .settings select:hover {
+  border-color: #FF5100;
+}
+
+body.dark-mode .price-item {
+  background: #2d2d2d;
+  border-color: #444;
+}
+
+body.dark-mode .price-item:hover {
+  border-color: #FF5100;
+  box-shadow: 0 2px 8px rgba(255, 81, 0, 0.2);
+}
+
+body.dark-mode .stock.in-stock {
+  background: #1b5e20;
+  color: #a5d6a7;
+}
+
+body.dark-mode .stock.out-of-stock {
+  background: #b71c1c;
+  color: #ef9a9a;
+}
+
+body.dark-mode .price-amount {
+  color: #ff6b47;
+}
+
+body.dark-mode .shipping {
+  color: #b0b0b0;
+}
+
+body.dark-mode .country-tag {
+  background: #444;
+  color: #ccc;
+}
+
+body.dark-mode .attribution {
+  border-top-color: #444;
+}
+
+body.dark-mode .attribution p {
+  color: #999;
+}
+
+body.dark-mode .attribution a {
+  color: #ff6b47;
+}
+
+body.dark-mode .error,
+body.dark-mode .no-game {
+  color: #b0b0b0;
+}
+
+body.dark-mode .error {
+  color: #ff6b47;
+}
+
+body.dark-mode .badge-toggle,
+body.dark-mode .dark-mode-toggle {
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+body.dark-mode .badge-toggle:hover,
+body.dark-mode .dark-mode-toggle:hover {
+  border-color: #FF5100;
+  color: #FF5100;
+}
+
+body.dark-mode .store-logo {
+  background: #f5f5f5;
+  border-radius: 4px;
 }

@@ -1,43 +1,25 @@
-// Firefox compatibility
-if (typeof browser !== 'undefined' && typeof chrome === 'undefined') {
-  window.chrome = browser;
-}
-
-let currentGameId = null;
+// Use browser API if available (Firefox), otherwise chrome (Chrome)
+const api = (typeof browser !== 'undefined') ? browser : chrome;
 
 function extractGameId() {
   const url = window.location.href;
-  const match = url.match(/\/boardgame(?:expansion)?\/(\d+)\//);
+  const match = url.match(BGG_GAME_URL_PATTERN);
   return match ? match[1] : null;
 }
 
-function updateGameId() {
+async function initialiseExtension() {
   const gameId = extractGameId();
-  if (gameId !== currentGameId) {
-    currentGameId = gameId;
-    chrome.storage.local.set({ currentGameId: gameId });
-    chrome.storage.local.get(null, (items) => {
-      const keysToRemove = Object.keys(items).filter(key => key.startsWith('prices_'));
-      chrome.storage.local.remove(keysToRemove);
-    });
+  
+  if (gameId) {
+    api.storage.local.set({ currentGameId: gameId });
+    
+    const settings = await api.storage.local.get(['badgeEnabled']);
+    if (settings.badgeEnabled !== false) {
+      api.runtime.sendMessage({ action: 'updateBadge', gameId: gameId });
+    }
+  } else {
+    api.runtime.sendMessage({ action: 'updateBadge', gameId: null });
   }
 }
 
-updateGameId();
-
-const observer = new MutationObserver(() => {
-  updateGameId();
-});
-
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
-});
-
-window.addEventListener('popstate', updateGameId);
-
-const pushState = history.pushState;
-history.pushState = function() {
-  pushState.apply(history, arguments);
-  updateGameId();
-};
+initialiseExtension();
