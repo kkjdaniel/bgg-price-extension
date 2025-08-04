@@ -4,7 +4,7 @@
   # BGG Price Checker
   
   [![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/bgg-price-checker/badhhgecpgddfoebdpiokchnfjadcihi)
-  [![Firefox Add-ons](https://img.shields.io/badge/Firefox-Coming%20Soon-FF7139?style=for-the-badge&logo=firefox&logoColor=white)](#firefox-add-ons)
+  [![Firefox Add-ons](https://img.shields.io/badge/Firefox-Add--ons-FF7139?style=for-the-badge&logo=firefox&logoColor=white)](https://addons.mozilla.org/en-GB/firefox/addon/bgg-price-checker/)
   [![Version](https://img.shields.io/badge/version-1.2.0-green?style=for-the-badge)](https://github.com/kkjdaniel/bgg-pricing-extension)
   [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
   [![BoardGameGeek](https://img.shields.io/badge/BoardGameGeek-Compatible-FF6600?style=for-the-badge)](https://boardgamegeek.com)
@@ -47,18 +47,12 @@ Install the extension directly from the [Chrome Web Store](https://chromewebstor
 
 ### Firefox
 
-[![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Coming%20Soon-FF7139?style=for-the-badge&logo=firefox&logoColor=white)](#)
+[![Firefox Add-ons](https://img.shields.io/badge/Firefox-Add--ons-FF7139?style=for-the-badge&logo=firefox&logoColor=white)](https://addons.mozilla.org/en-GB/firefox/addon/bgg-price-checker/)
 
-The Firefox version is coming soon! In the meantime, you can install it manually:
+Install the extension directly from [Firefox Add-ons](https://addons.mozilla.org/en-GB/firefox/addon/bgg-price-checker/).
 
-1. Download the source code
-2. Build the Firefox version: `make firefox`
-3. Open Firefox and navigate to `about:debugging`
-4. Click "This Firefox"
-5. Click "Load Temporary Add-on"
-6. Navigate to the `dist` folder and select the Firefox `.zip` file
+#### Manual Installation
 
-**Alternative manual method:**
 1. Rename `manifest-firefox.json` to `manifest.json`
 2. Open Firefox and navigate to `about:debugging`
 3. Click "This Firefox"
