@@ -67,13 +67,6 @@ Install the extension directly from [Firefox Add-ons](https://addons.mozilla.org
 4. Click on any price to visit the retailer's page
 5. Use the dropdown menus to change currency and shipping destination
 
-## 🔧 Technical Details
-
-- **API**: Uses BoardGamePrices.co.uk plugin API
-- **Caching**: Stores pricing data for 1 hour per game/currency/destination combination
-- **Region Detection**: Automatically sets currency based on browser locale
-- **BGG ID Extraction**: Parses game ID from BoardGameGeek URLs
-
 ## 👨‍💻 Development
 
 To modify the extension:
@@ -82,19 +75,6 @@ To modify the extension:
 2. Go to `chrome://extensions/`
 3. Click the refresh icon on the extension card
 4. Test your changes
-
-### Project Structurew
-
-#### Core Files
-
-- `manifest.json` - Chrome/Edge extension manifest (Manifest V3)
-- `manifest-firefox.json` - Firefox extension manifest (Manifest V2)
-- `constants.js` - Shared constants across all scripts
-- `content.js` - Runs on BGG pages to detect game IDs and update badge
-- `background.js` - Service worker handling badge updates and data caching
-- `popup.js` - Main logic for the extension popup UI
-- `popup.html` - Extension popup interface
-- `popup.css` - Styling including dark mode support
 
 ### Building for Distribution
 
